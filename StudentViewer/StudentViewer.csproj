@@ -80,6 +80,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CourseworkWrapper.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="IIdentity.cs" />
+    <Compile Include="StudentPage.xaml.cs">
+      <DependentUpon>StudentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StudentSubmissionWrapper.cs" />
     <Compile Include="StudentWrapper.cs" />
     <Compile Include="TeacherWrapper.cs" />
@@ -98,6 +103,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="StudentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

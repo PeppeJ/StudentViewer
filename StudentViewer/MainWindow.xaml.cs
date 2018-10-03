@@ -36,46 +36,28 @@ namespace StudentViewer
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            connection = new Connection();
-            connection.Initialize();
-            
-
-            // Define request parameters.
-            ListCoursesResponse courseResponse = connection.ListCourses();
-
-            if (courseResponse.Courses != null && courseResponse.Courses.Count > 0)
-            {
-                foreach (var course in courseResponse.Courses)
-                {
-                    courseBox.AppendText(course.Name);
-                    courseBox.AppendText("\n");
-
-                    Task.Factory.StartNew(() => { GetStudentsFromCourse(course.Id); }, TaskCreationOptions.LongRunning);
-                }
-            }
+            Connection.instance.Initialize();   
         }
 
-        public void GetStudentsFromCourse(string courseId)
-        {
-            Console.WriteLine("START\t" + Thread.CurrentThread.ManagedThreadId);
-            ListStudentsResponse studentsResponse = connection.ListStudentsInCourse(courseId);
+        //public void GetStudentsFromCourse(string courseId)
+        //{
+        //    Console.WriteLine("START\t" + Thread.CurrentThread.ManagedThreadId);
+        //    ListStudentsResponse studentsResponse = connection.RetrieveStudentsInCourse(courseId);
 
-            Dispatcher.Invoke(() =>
-            {
-                studentBox.AppendText(courseId);
-                if (studentsResponse.Students != null && studentsResponse.Students.Count > 0)
-                {
-                    foreach (var student in studentsResponse.Students)
-                    {
-                        studentBox.AppendText(student.Profile.Name.GivenName + " " + student.ETag);
-                        studentBox.AppendText("\n");
-                    }
-                    studentBox.AppendText("\n");
-                }
-            });
-
-            Console.WriteLine("END\t" + Thread.CurrentThread.ManagedThreadId);
-
-        }
+        //    Dispatcher.Invoke(() =>
+        //    {
+        //        studentBox.AppendText(courseId);
+        //        if (studentsResponse.Students != null && studentsResponse.Students.Count > 0)
+        //        {
+        //            foreach (var student in studentsResponse.Students)
+        //            {
+        //                studentBox.AppendText(student.Profile.Name.GivenName + " " + student.ETag);
+        //                studentBox.AppendText("\n");
+        //            }
+        //            studentBox.AppendText("\n");
+        //        }
+        //    });
+        //    Console.WriteLine("END\t" + Thread.CurrentThread.ManagedThreadId);
+        //}
     }
 }
